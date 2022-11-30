@@ -1,7 +1,7 @@
 
 import React from 'react';
 import './App.css';
-import {encrypt} from './MathsRSA.tsx';
+import {affichageChiffrement, encrypt,calcE,modInverse} from './MathsRSA.tsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -22,13 +22,26 @@ class App extends React.Component {
   }
 
   handleSubmit(event) {
+    console.log( modInverse(247,24)) 
+
+    var phin = (this.state.p - 1)*(this.state.q - 1)
+    var n = (this.state.p )*(this.state.q)
+    var e = calcE(phin)
+    var d = modInverse(e,phin)
       document.getElementById(1).textContent = 
-      encrypt(
+      affichageChiffrement(
         this.state.msg,
         parseInt(this.state.p),
         parseInt( this.state.q)
       ).join('')
     event.preventDefault();
+    
+    document.getElementById("pk").textContent =      
+    "private key : "+ n+" - "+e
+
+    document.getElementById("puk").textContent =      
+    "public key : "+ n+" - "+d
+    
   }
 
   render() {
@@ -52,6 +65,8 @@ class App extends React.Component {
               </label>
             </p>
           <p>
+            <p id ="pk"> </p>
+            <p id ="puk"> </p>
             <label>Message:
               <input id = "msg" 
                     value={this.state.msg} 

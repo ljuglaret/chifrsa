@@ -18,7 +18,37 @@
  
  }
  
-
+ //Inverse Modulaire
+ // a est l'inverse de b modulo n ssi a * b est congru à 1 modulo n
+export function modInverse(a:number, m:number) {
+    // validate inputs
+    if (Number.isNaN(a) || Number.isNaN(m)) {
+      return NaN // invalid input
+    }
+    a = (a % m + m) % m
+    if (!a || m < 2) {
+      return NaN // invalid input
+    }
+    // find the gcd
+    const s : [{ a:number, b:number}]= [{a:m,b:a}]
+    let b = m
+    while(b) {
+      [a, b] = [b, a % b]
+      s.push({ a, b})
+    }
+    if (a !== 1) {
+      return NaN // inverse does not exists
+    }
+    // find the inverse
+    let x = 1
+    let y = 0
+    for(let i = s.length - 2; i > 0; --i) {
+      [x, y] = [y,  x - y * Math.floor(s[i].a / s[i].b)]
+     
+    }
+    return (y % m + m) % m
+  }
+  
   //mot dans lequel chaque lettre est transformée en sa position dans l'alphabet
   //f1("ab") => [97,98]
   function f1(str:string):number[]{
@@ -39,9 +69,9 @@
    }
 
    //calcul de e tel que e soit premier avec (p - 1) * (q - 1)
-   function calcE(phiN : number):number{
+   export function calcE(phiN : number):number{
     var e : number = 0
-    for (let i = 2 ; i < phiN/2; i++){
+    for (let i = 2 ; i < Math.sqrt(phiN) ; i++){
         if(phiN % i !== 0){
             e = i;
         }
@@ -50,6 +80,7 @@
    }
    //M^e [n]
   export function encrypt(value: string , p : number , q : number):string[]{ 
+
     var n : number    = p*q
     var phin : number = (p-1)*(q-1)
     var e = calcE(phin)
@@ -57,10 +88,29 @@
 
     console.log("p : "+p+ " ; q :" + q + "e : " + e + "; msg  :"+ value)
     console.log (f2(
-        str.map(char => puissmod(char,e,n))
+        str.map(char => (puissmod(char,e,n)%94)+33)
         ))
-    //à chaque caractère obtenu : applicaiion de la formule RSA
+    //à chaque caractère obtenu : application de la formule RSA
     return f2(
       str.map(char => puissmod(char,e,n))
       )
+  }
+
+  //C^d[n]
+  //d, l'inverse de e modulo (p – 1)(q – 1),
+function decrypt(c: string , d : number , n : number){
+    var   str : number[] = f1(c)   
+    return f2(
+        str.map(char => puissmod(char,d,n))
+        ) 
+}
+
+  export function affichageChiffrement(value: string , p : number , q : number) {
+    var n : number    = p*q
+    var phin : number = (p-1)*(q-1)
+    var e = calcE(phin)
+    var   str : number[] = f1(value)  
+    return f2(
+        str.map(char => (puissmod(char,e,n)%94)+33)
+        )
   }
