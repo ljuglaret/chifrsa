@@ -68,12 +68,28 @@ export function modInverse(a:number, m:number) {
       
    }
 
+   function pgcd(a,b) {
+    a = Math.abs(a);
+    b = Math.abs(b);
+    if (b > a) {
+       var tmp = a; 
+       a = b; 
+       b = tmp;
+    }
+    while (true) {
+        if (b === 0) return a;
+        a %= b;
+        if (a === 0) return b;
+        b %= a;
+    }
+}
    //calcul de e tel que e soit premier avec (p - 1) * (q - 1)
    export function calcE(phiN : number):number{
     var e : number = 0
-    for (let i = 2 ; i < Math.sqrt(phiN) ; i++){
-        if(phiN % i !== 0){
+    for (let i = 2 ; i <phiN ; i++){
+        if(pgcd(phiN,i) === 1 ){
             e = i;
+            break;
         }
     }
     return e
@@ -86,10 +102,6 @@ export function modInverse(a:number, m:number) {
     var e = calcE(phin)
     var   str : number[] = f1(value)    
 
-    console.log("p : "+p+ " ; q :" + q + "e : " + e + "; msg  :"+ value)
-    console.log (f2(
-        str.map(char => (puissmod(char,e,n)%94)+33)
-        ))
     //à chaque caractère obtenu : application de la formule RSA
     return f2(
       str.map(char => puissmod(char,e,n))
@@ -98,8 +110,10 @@ export function modInverse(a:number, m:number) {
 
   //C^d[n]
   //d, l'inverse de e modulo (p – 1)(q – 1),
-function decrypt(c: string , d : number , n : number){
+export function decrypt(c: string , d : number , n : number):string[]{
+    
     var   str : number[] = f1(c)   
+    
     return f2(
         str.map(char => puissmod(char,d,n))
         ) 

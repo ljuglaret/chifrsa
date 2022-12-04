@@ -1,7 +1,7 @@
 
 import React from 'react';
 import './App.css';
-import {affichageChiffrement, encrypt,calcE,modInverse} from './MathsRSA.tsx';
+import {affichageChiffrement, encrypt,decrypt,calcE,modInverse} from './MathsRSA.tsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -22,12 +22,16 @@ class App extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log( modInverse(247,24)) 
+
+    var x=encrypt("LL",19,11).join("")
+
+    console.log (decrypt(x,103,209).join(""))
 
     var phin = (this.state.p - 1)*(this.state.q - 1)
     var n = (this.state.p )*(this.state.q)
     var e = calcE(phin)
     var d = modInverse(e,phin)
+    
       document.getElementById(1).textContent = 
       affichageChiffrement(
         this.state.msg,
@@ -37,10 +41,10 @@ class App extends React.Component {
     event.preventDefault();
     
     document.getElementById("pk").textContent =      
-    "private key : "+ n+" - "+e
+    "private key (n ; e) : "+ n+" ; "+e
 
     document.getElementById("puk").textContent =      
-    "public key : "+ n+" - "+d
+    "public key (n ; d) : "+ n+" ; "+d
     
   }
 
