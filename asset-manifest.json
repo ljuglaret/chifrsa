@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/chifrsa/static/css/main.073c9b0a.css",
-    "main.js": "/chifrsa/static/js/main.a40e1a13.js",
+    "main.js": "/chifrsa/static/js/main.ccc48b89.js",
     "static/js/787.c1985947.chunk.js": "/chifrsa/static/js/787.c1985947.chunk.js",
     "index.html": "/chifrsa/index.html",
     "main.073c9b0a.css.map": "/chifrsa/static/css/main.073c9b0a.css.map",
-    "main.a40e1a13.js.map": "/chifrsa/static/js/main.a40e1a13.js.map",
+    "main.ccc48b89.js.map": "/chifrsa/static/js/main.ccc48b89.js.map",
     "787.c1985947.chunk.js.map": "/chifrsa/static/js/787.c1985947.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.a40e1a13.js"
+    "static/js/main.ccc48b89.js"
   ]
 }
