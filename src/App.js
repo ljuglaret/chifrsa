@@ -1,7 +1,7 @@
 
 import React from 'react';
 import './App.css';
-import {affichageChiffrement, encrypt,decrypt,calcE,modInverse} from './MathsRSA.tsx';
+import { encrypt,decrypt,calcE,modInverse,pgcd} from './MathsRSA.tsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,34 +19,48 @@ class App extends React.Component {
       [evt.target.id]: value
   
     });
+   
   }
+
 
   handleSubmit(event) {
+    console.log(this.state.p + " - " + this.state.q)
 
-    var x=encrypt("LL",19,11).join("")
+    if(this.state.p!==undefined && this.state.q !== undefined && !isNaN(this.state.p)  && !isNaN(this.state.q)){
 
-    console.log (decrypt(x,103,209).join(""))
-
-    var phin = (this.state.p - 1)*(this.state.q - 1)
-    var n = (this.state.p )*(this.state.q)
-    var e = calcE(phin)
-    var d = modInverse(e,phin)
+      if( pgcd (this.state.p,2)  === 1 && pgcd (this.state.q,2 ) === 1) {
+       
+        var phin = (this.state.p - 1)*(this.state.q - 1)
+        var n = (this.state.p )*(this.state.q)
+        var e = calcE(phin)
+        var d = modInverse(e,phin)
+        
+          document.getElementById(1).textContent = 
+          encrypt(
+            this.state.msg,
+            parseInt(this.state.p),
+            parseInt( this.state.q)
+          ).join(' ')
+        event.preventDefault();
+        
+        document.getElementById("pk").textContent =      
+        "private key (n ; e) : "+ n+" ; "+e
     
-      document.getElementById(1).textContent = 
-      affichageChiffrement(
-        this.state.msg,
-        parseInt(this.state.p),
-        parseInt( this.state.q)
-      ).join('')
-    event.preventDefault();
-    
-    document.getElementById("pk").textContent =      
-    "private key (n ; e) : "+ n+" ; "+e
+        document.getElementById("puk").textContent =      
+        "public key (n ; d) : "+ n+" ; "+d
+        console.log(decrypt(encrypt( this.state.msg, parseInt(this.state.p),parseInt( this.state.q)),d,n))
+      }
+     
+    }
+   
+    else{
+      console.log("p et q doivent être des nombres premiers")
+    }
+  
 
-    document.getElementById("puk").textContent =      
-    "public key (n ; d) : "+ n+" ; "+d
-    
   }
+
+  
 
   render() {
     return (
@@ -54,7 +68,8 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <form onSubmit={this.handleSubmit}>
-            <p>
+            
+          
               <label>Enter p
                 <input id = "p"
                       value={this.state.p} 
@@ -67,8 +82,8 @@ class App extends React.Component {
                       onChange={this.handleChange} 
                 /> 
               </label>
-            </p>
-          <p>
+            
+          
             <p id ="pk"> </p>
             <p id ="puk"> </p>
             <label>Message:
@@ -76,13 +91,11 @@ class App extends React.Component {
                     value={this.state.msg} 
                     onChange={this.handleChange} />
             </label>
-          </p>     
-          <p>
-            <input type="submit" value="Encrypt" />
-          </p>
-          <p>
-            <label id = "1" ></label>
-          </p>
+            
+         
+            <p> <input type="submit" value="Encrypt" /></p>
+             <p><label id = "1" ></label></p>
+             <p id = "resultat"></p>
         </form>
       </header>
     </div>
