@@ -1,7 +1,7 @@
 
 import React from 'react';
 import './App.css';
-import { encrypt,decrypt,calcE,modInverse,pgcd} from './MathsRSA.tsx';
+import { encrypt,decrypt,calcE,modInverse,estPremier} from './MathsRSA.tsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -28,7 +28,7 @@ class App extends React.Component {
 
     if(this.state.p!==undefined && this.state.q !== undefined && !isNaN(this.state.p)  && !isNaN(this.state.q)){
 
-      if( pgcd (this.state.p,2)  === 1 && pgcd (this.state.q,2 ) === 1) {
+      if( estPremier (this.state.p) &&  estPremier (this.state.q)) {
        
         var phin = (this.state.p - 1)*(this.state.q - 1)
         var n = (this.state.p )*(this.state.q)
@@ -54,7 +54,7 @@ class App extends React.Component {
     }
    
     else{
-      console.log("p et q doivent être des nombres premiers")
+     alert("p et q doivent être des nombres premiers")
     }
   
 

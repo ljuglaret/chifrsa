@@ -128,6 +128,17 @@ export function modInverse(a:number, m:number) {
         b %= a;
     }
 }
+
+export function estPremier(x : number){
+
+      for (let i = 2 ; i <x ; i++){
+          if(pgcd(x,i) !== 1 ){
+              return false;
+          }
+      }
+      return true;
+     }
+
    //calcul de e tel que e soit premier avec (p - 1) * (q - 1)
    export function calcE(phiN : number):number{
     var e : number = 0
