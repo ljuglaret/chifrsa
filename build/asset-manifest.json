@@ -1,15 +1,17 @@
 {
   "files": {
-    "main.css": "/chifrsa/static/css/main.073c9b0a.css",
-    "main.js": "/chifrsa/static/js/main.ccc48b89.js",
+    "main.css": "/chifrsa/static/css/main.8d10cc1d.css",
+    "main.js": "/chifrsa/static/js/main.336acb58.js",
     "static/js/787.c1985947.chunk.js": "/chifrsa/static/js/787.c1985947.chunk.js",
+    "static/media/fermeture.jpg": "/chifrsa/static/media/fermeture.39481ab31f267073d479.jpg",
+    "static/media/ouverture.jpg": "/chifrsa/static/media/ouverture.a2315d3df0089003a2d0.jpg",
     "index.html": "/chifrsa/index.html",
-    "main.073c9b0a.css.map": "/chifrsa/static/css/main.073c9b0a.css.map",
-    "main.ccc48b89.js.map": "/chifrsa/static/js/main.ccc48b89.js.map",
+    "main.8d10cc1d.css.map": "/chifrsa/static/css/main.8d10cc1d.css.map",
+    "main.336acb58.js.map": "/chifrsa/static/js/main.336acb58.js.map",
     "787.c1985947.chunk.js.map": "/chifrsa/static/js/787.c1985947.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.ccc48b89.js"
+    "static/css/main.8d10cc1d.css",
+    "static/js/main.336acb58.js"
   ]
 }

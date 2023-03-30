@@ -86,6 +86,7 @@ export function modInverse(a:number, m:number) {
       let etape1 : number[][]= str2.map(c => base10versbaseB(c,94));
       let etape2 : number[][]= etape1.map(tab => tab.map(x=>x+33 ))
       let etape3 : string[] = etape2.map(tstr => f2(tstr).join(''))
+     // console.log(" etape 1 " + etape1 + " ; etape2 : " + etape2 + " ; etape 3 :  " + etape3)
       return etape3;
    }
 
@@ -110,10 +111,11 @@ export function modInverse(a:number, m:number) {
     let etape1 : number[][]= tstr.map(c =>f1(c))
     let etape2 : number[][] = etape1.map(tab => tab.map(x => x-33))
     let etape3 : number[] = etape2.map(tab => baseBversbase10(tab,94))
+   // console.log(" etape 1 " + etape1 + " ; etape2 : " + etape2 + " ; etape 3 :  " + etape3)
     return etape3
   }
 
-   export function pgcd(a,b) {
+   export function pgcd(a : number,b : number) {
     a = Math.abs(a);
     b = Math.abs(b);
     if (b > a) {
@@ -159,6 +161,7 @@ export function estPremier(x : number){
     var   str : number[] = f1(value)    
 
     //à chaque caractère obtenu : application de la formule RSA
+    //console.log("ch "+value +"=" + str+ " " +str.map(char => puissmod(char,e,n)));
     return f2bis(
       str.map(char => puissmod(char,e,n))
       )
@@ -167,7 +170,9 @@ export function estPremier(x : number){
   //C^d[n]
   //d, l'inverse de e modulo (p – 1)(q – 1),
 export function decrypt(c: string[] , d : number , n : number):string[]{
+
     var  str : number[] = f2bisReciproque(c);   
+   // console.log("dch "+c+"=" + str+  " " +str.map(char => puissmod(char,d,n)));
 
     return  f2(str.map(char => puissmod(char,d,n)))
         
